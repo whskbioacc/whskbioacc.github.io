@@ -2476,7 +2476,8 @@ body.effects-off .vignette {
       const custom = activities && activities.find(a => a.type === ACT_CUSTOM);
       const act    = game || stream || watch;
 
-      presenceImg.src = avatarUrl(discord_user);
+      presenceImg.src = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
+      presenceDot.dataset.status = 'online';
 
       if (act) {
         presenceEl.classList.add('is-playing');
