@@ -2476,8 +2476,7 @@ body.effects-off .vignette {
       const custom = activities && activities.find(a => a.type === ACT_CUSTOM);
       const act    = game || stream || watch;
 
-      presenceImg.src = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
-      presenceDot.dataset.status = 'online';
+      presenceImg.src = avatarUrl(discord_user);
 
       if (act) {
         presenceEl.classList.add('is-playing');
@@ -2485,6 +2484,8 @@ body.effects-off .vignette {
                    : act.type === ACT_WATCHING  ? 'Watching'
                    : 'Playing';
         setPresenceTag(verb);
+        presenceImg.src = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
+        presenceDot.dataset.status = 'online';
         presenceTitle.textContent = act.name || '—';
         presenceSub.textContent   = act.details || act.state || STATUS_LABEL[discord_status] || '';
         return;
