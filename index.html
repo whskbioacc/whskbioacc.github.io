@@ -2423,7 +2423,8 @@ body.effects-off .vignette {
     async function render(data) {
       clearInterval(spotifyTimer);
       spotifyTimer = null;
-
+      presenceDot.style.display = '';
+      
       if (!data || !data.discord_user) {
         presenceEl.dataset.state = 'error';
         setPresenceTag('');
@@ -2480,6 +2481,7 @@ body.effects-off .vignette {
 
       if (act) {
         presenceEl.classList.add('is-playing');
+        presenceDot.style.display = 'none';
         const verb = act.type === ACT_STREAMING ? 'Streaming'
                    : act.type === ACT_WATCHING  ? 'Watching'
                    : 'Playing';
@@ -2499,7 +2501,7 @@ body.effects-off .vignette {
         };
         presenceDot.dataset.status = 'online';
         presenceTitle.textContent = act.name || '—';
-        presenceSub.textContent   = act.details || act.state || STATUS_LABEL[discord_status] || '';
+        presenceSub.textContent   = act.details || act.state || 'Now Playing';
         return;
       }
 
