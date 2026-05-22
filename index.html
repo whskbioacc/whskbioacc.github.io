@@ -2420,7 +2420,7 @@ body.effects-off .vignette {
       }
     }
 
-    function render(data) {
+    async function render(data) {
       clearInterval(spotifyTimer);
       spotifyTimer = null;
 
@@ -2484,7 +2484,21 @@ body.effects-off .vignette {
                    : act.type === ACT_WATCHING  ? 'Watching'
                    : 'Playing';
         setPresenceTag(verb);
+        if (act.assets && act.assets.large_image) {
         presenceImg.src = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
+        } else {
+          const istekle = await fetch('https://discordgate.com/api/tools/lookup/applications/add', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "botId": act.application_id, "fingerprint": "a52f10fed398f7dec7d354b8b78ef5d2b53533a35ae8dd6e175c0da60c30b50" })
+          });
+
+          const yanital = await istekle.json();
+
+          presenceImg.src = `https://cdn.discordapp.com/app-icons/${act.application_id}/${yanital.data.botData.icon}?size=1024`;
+        };
         presenceDot.dataset.status = 'online';
         presenceTitle.textContent = act.name || '—';
         presenceSub.textContent   = act.details || act.state || STATUS_LABEL[discord_status] || '';
