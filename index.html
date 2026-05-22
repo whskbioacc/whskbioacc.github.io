@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
-<script src="https://js.puter.com/v2/"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
@@ -2488,17 +2487,15 @@ body.effects-off .vignette {
         if (act.assets && act.assets.large_image) {
         presenceImg.src = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
         } else {
-          const istekle = await puter.net.fetch('https://discordgate.com/api/tools/lookup/applications/add', {
-            method: 'POST',
+          const istekle = await fetch(`https://discord.com/api/v10/applications/${act.application_id}/rpc`, {
             headers: {
               'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "botId": act.application_id, "fingerprint": "a52f10fed398f7dec7d354b8b78ef5d2b53533a35ae8dd6e175c0da60c30b50" })
+            }
           });
 
           const yanital = await istekle.json();
 
-          presenceImg.src = `https://cdn.discordapp.com/app-icons/${act.application_id}/${yanital.data.botData.icon}?size=1024`;
+          presenceImg.src = `https://cdn.discordapp.com/app-icons/${act.application_id}/${yanital.data.icon}?size=1024`;
         };
         presenceDot.dataset.status = 'online';
         presenceTitle.textContent = act.name || '—';
