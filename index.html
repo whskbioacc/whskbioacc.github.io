@@ -2481,6 +2481,7 @@ body.effects-off .vignette {
       presenceImg.src = avatarUrl(discord_user);
 
       if (act) {
+        presenceImg.style.borderRadius = '10px';
         presenceEl.classList.add('is-playing');
         presenceDot.style.display = 'none';
         const verb = act.type === ACT_STREAMING ? 'Streaming'
@@ -2488,7 +2489,6 @@ body.effects-off .vignette {
                    : 'Playing';
         setPresenceTag(verb);
         if (act.assets && act.assets.large_image) {
-        presenceImg.style.borderRadius = '10px';
         presenceImg.src = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
         } else {
           const istekle = await fetch(`https://discord.com/api/v10/applications/${act.application_id}/rpc`, {
