@@ -2424,6 +2424,7 @@ body.effects-off .vignette {
       clearInterval(spotifyTimer);
       spotifyTimer = null;
       presenceDot.style.display = '';
+      presenceImg.style.borderRadius = '%50';
       
       if (!data || !data.discord_user) {
         presenceEl.dataset.state = 'error';
@@ -2487,6 +2488,7 @@ body.effects-off .vignette {
                    : 'Playing';
         setPresenceTag(verb);
         if (act.assets && act.assets.large_image) {
+        presenceImg.style.borderRadius = '10px';
         presenceImg.src = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
         } else {
           const istekle = await fetch(`https://discord.com/api/v10/applications/${act.application_id}/rpc`, {
